@@ -14,7 +14,7 @@ export class WishBoard {
     // Dedicated online REST database object endpoint
     this.cloudApiUrl = 'https://api.restful-api.dev/objects/ff8081819ff5b110019ff9231fde07a7';
     this.wishes = [];
-    this.phoneNumber = '74500070592';
+    this.phoneNumber = '7450070592';
     this.isSyncing = false;
 
     this.init();
