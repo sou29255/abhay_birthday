@@ -1,0 +1,113 @@
+/* ==========================================================================
+   ADVANCED HAPPY BIRTHDAY - KEYFRAME ANIMATIONS
+   ========================================================================== */
+
+/* Candle Flame Flicker */
+@keyframes flame-flicker {
+  0% {
+    transform: translateX(-50%) scale(1) rotate(-1deg);
+    opacity: 0.95;
+  }
+  20% {
+    transform: translateX(-48%) scale(1.05) rotate(2deg);
+    opacity: 1;
+  }
+  40% {
+    transform: translateX(-52%) scale(0.95) rotate(-2deg);
+    opacity: 0.9;
+  }
+  60% {
+    transform: translateX(-49%) scale(1.08) rotate(1deg);
+    opacity: 1;
+  }
+  80% {
+    transform: translateX(-51%) scale(0.98) rotate(-1deg);
+    opacity: 0.92;
+  }
+  100% {
+    transform: translateX(-50%) scale(1.02) rotate(1deg);
+    opacity: 0.97;
+  }
+}
+
+/* Smoke Rising */
+@keyframes smoke-rise {
+  0% {
+    opacity: 0.8;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateX(-80%) translateY(-25px) scale(2.5);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-20%) translateY(-50px) scale(4);
+  }
+}
+
+/* Pulse Text for Subtitle */
+@keyframes pulse-text {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+/* Floating Balloons Animation */
+@keyframes balloon-float {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(50vh) rotate(8deg);
+  }
+  100% {
+    transform: translateY(-20vh) rotate(-8deg);
+    opacity: 0.9;
+  }
+}
+
+/* Toast Slide In */
+@keyframes toast-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Confetti Burst Sparkle */
+@keyframes sparkle-rotate {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.3);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+/* Unboxing Lid Fly Off */
+@keyframes lid-fly-off {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  30% {
+    transform: translateY(-40px) rotate(-15deg);
+  }
+  100% {
+    transform: translateY(-300px) rotate(45deg) scale(0.5);
+    opacity: 0;
+  }
+}

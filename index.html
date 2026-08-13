@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Celebration | Special Wishes</title>
+  <meta name="description" content="An interactive 3D Happy Birthday web application featuring blowable candles, dynamic fireworks, customized polaroid gallery, music synthesizer, and shareable birthday cards." />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Great+Vibes&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="animations.css" />
+</head>
+<body>
+
+  <!-- Fullscreen Particle & Fireworks Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Floating Balloons Container -->
+  <div id="balloons-container"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- UNBOXING / ENTRANCE GATE -->
+  <div id="entrance-gate">
+    <h1 class="gate-title">A Special Surprise Awaits...</h1>
+    <div class="gift-box-wrapper" id="gift-box-trigger" title="Click to open your birthday gift!">
+      <div class="gift-box">
+        <div class="gift-lid"></div>
+        <div class="gift-ribbon-v"></div>
+        <div class="gift-ribbon-h"></div>
+        <div class="gift-bow"></div>
+      </div>
+    </div>
+    <p class="gate-subtitle">Tap the gift box to unwrap your celebration</p>
+  </div>
+
+  <!-- FLOATING CONTROL BAR -->
+  <header class="floating-controls">
+    <div class="music-player-bar">
+      <button class="ctrl-btn" id="toggle-music-btn" title="Toggle Music Playback">🔇</button>
+      <select id="playlist-select" class="playlist-select" title="Choose Background Song">
+        <option value="0">🎵 Track 1 (by.mpeg)</option>
+        <option value="1">🎵 Track 2 (hi.mpeg)</option>
+      </select>
+    </div>
+    <button class="ctrl-btn" id="trigger-fireworks-btn" title="Launch Fireworks Explosion">🎆</button>
+    <button class="ctrl-btn" id="open-personalize-btn" title="Personalize Name & Wishes">✏️</button>
+  </header>
+
+  <!-- MAIN APP CONTENT -->
+  <div id="app-container">
+    
+    <!-- 1. HERO CELEBRATION STAGE -->
+    <section class="hero-section" id="hero-stage">
+      <div class="hero-banner">
+        <span class="badge-tag">✨ Celebrating You Today ✨</span>
+        
+        <!-- Hero Portrait Cutout -->
+        <div class="hero-portrait-wrapper">
+          <div class="portrait-glow-ring"></div>
+          <img src="abhay_portrait.png" alt="Abhay" class="hero-portrait-img" />
+        </div>
+
+        <h1 class="hero-title">Happy Birthday</h1>
+        <div class="recipient-name">ABHAY</div>
+        <p class="bday-subtext">
+          Wishing you a day filled with unforgettable joy, endless laughter, and incredible moments!
+        </p>
+
+        <!-- Birthday Cake & Candles -->
+        <div class="cake-container">
+          <div class="cake">
+            <!-- Top Candle Row -->
+            <div class="candles-row">
+              <div class="candle"><div class="candle-wick"></div><div class="candle-flame"></div></div>
+              <div class="candle"><div class="candle-wick"></div><div class="candle-flame"></div></div>
+              <div class="candle"><div class="candle-wick"></div><div class="candle-flame"></div></div>
+            </div>
+
+            <!-- Cake Tiers -->
+            <div class="cake-tier cake-top">
+              <div class="frosting-drip"></div>
+            </div>
+            <div class="cake-tier cake-middle">
+              <div class="frosting-drip"></div>
+            </div>
+            <div class="cake-tier cake-bottom">
+              <div class="frosting-drip"></div>
+            </div>
+            <div class="cake-plate"></div>
+          </div>
+        </div>
+
+        <!-- Candle Blow Action Controls -->
+        <div class="candle-status-box">
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center;">
+            <button class="btn-primary" id="mic-blow-btn">
+              <span>🎙️</span> Blow via Microphone
+            </button>
+            <button class="btn-primary" id="blow-direct-btn" style="background: linear-gradient(135deg, #ffd700 0%, #ff7b00 100%);">
+              <span>🎂</span> Blow Out Candles
+            </button>
+          </div>
+          <span class="mic-indicator" id="blow-status-text">
+            <span class="mic-dot"></span> Click microphone button & blow air or tap candles to blow them out!
+          </span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 2. POLAROID MEMORY GALLERY -->
+    <section class="section-container" id="gallery-section">
+      <div class="section-header">
+        <h2 class="section-title">Memories & Snapshots</h2>
+        <p class="section-desc">Cherished moments captured in time</p>
+      </div>
+
+      <div class="gallery-grid" id="gallery-grid">
+        <!-- Dynamically rendered Polaroid cards -->
+      </div>
+
+      <!-- Add Photo Option -->
+      <div style="text-align: center; margin-top: 2.5rem;">
+        <label for="upload-photo-input" class="btn-primary" style="cursor: pointer;">
+          <span>📸</span> Add Your Own Photo Memory
+        </label>
+        <input type="file" id="upload-photo-input" accept="image/*" style="display: none;" />
+      </div>
+    </section>
+
+    <!-- 3. VIRTUAL WISH BOARD -->
+    <section class="section-container" id="wishes-section">
+      <div class="section-header">
+        <h2 class="section-title">Birthday Wish Wall</h2>
+        <p class="section-desc">Leave a heartfelt note or message on the board</p>
+      </div>
+
+      <div class="wish-board-wrapper">
+        <form class="wish-input-group" id="wish-form">
+          <input type="text" class="wish-input" id="wish-author" placeholder="Your Name" required />
+          <textarea class="wish-textarea" id="wish-text" placeholder="Write your warm birthday message or wish here..." required></textarea>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: flex-end; width: 100%;">
+            <button type="submit" class="btn-primary" id="pin-and-send-wa">
+              <span>💬</span> Pin & Send via WhatsApp
+            </button>
+            <button type="button" class="btn-primary" id="send-direct-sms" style="background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);">
+              <span>📱</span> Send via SMS
+            </button>
+          </div>
+        </form>
+
+        <div class="wishes-grid" id="wishes-grid">
+          <!-- Dynamically rendered sticky notes -->
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <p>Crafted with ❤️ & magic for an extraordinary birthday celebration.</p>
+    </footer>
+
+  </div>
+
+  <!-- LIGHTBOX MODAL -->
+  <div class="lightbox-modal" id="lightbox-modal">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightbox-close">&times;</button>
+      <img src="" alt="Memory preview" class="lightbox-img" />
+      <div class="lightbox-caption" style="font-family: var(--font-heading); font-size: 2rem; color: var(--accent-gold); margin-top: 1rem;"></div>
+    </div>
+  </div>
+
+  <!-- PERSONALIZE MODAL -->
+  <div class="modal-overlay" id="personalize-modal">
+    <div class="modal-card luxury-modal">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <span style="font-size: 1.5rem;">✨</span>
+          <h3 class="modal-title">Personalize Celebration</h3>
+        </div>
+        <button class="modal-close" id="close-personalize-btn">&times;</button>
+      </div>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem;">
+        Update the recipient's name and special birthday greeting message on the main stage.
+      </p>
+
+      <form id="personalize-form">
+        <div class="form-group">
+          <label class="form-label" for="edit-name">👤 Birthday Person's Name</label>
+          <input type="text" class="wish-input luxury-input" id="edit-name" placeholder="e.g. ABHAY" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="edit-msg">💌 Greeting Message / Subtext</label>
+          <textarea class="wish-textarea luxury-input" id="edit-msg" placeholder="Wishing you a day filled with unforgettable joy, laughter..."></textarea>
+        </div>
+
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+          <button type="button" class="preset-msg-btn" data-msg="Wishing you a day full of boundless joy, smiles, and laughter! 🥳">🥳 Party Vibes</button>
+          <button type="button" class="preset-msg-btn" data-msg="May all your dreams take flight and your year ahead be extraordinary! 🌟">🌟 Dreams</button>
+          <button type="button" class="preset-msg-btn" data-msg="Cheers to another magnificent year of happiness and great memories! 🥂">🥂 Cheers</button>
+        </div>
+
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 0.9rem; font-size: 1.05rem;">
+          <span>💖</span> Save & Update Stage
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- JS Modules -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>
